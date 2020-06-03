@@ -13,7 +13,7 @@ var CLOUD = {
   x: 100,
   y: 10
 };
-var YOU_DATA = {
+var USER = {
   name: 'Вы',
   color: 'rgba(255, 0, 0, 1)'
 };
@@ -30,9 +30,9 @@ var getRandomNumber = function (min, max) {
   return Math.floor(rand);
 };
 
-var getRandomBlueColor = function (player) {
+var getRandomBlueColor = function () {
   var randomSaturation = getRandomNumber(1, 100) + '%';
-  return player === YOU_DATA.name ? YOU_DATA.color : 'hsl(240, ' + randomSaturation + ', 50%)';
+  return 'hsl(240, ' + randomSaturation + ', 50%)';
 };
 
 var renderCloud = function (ctx, x, y, color) {
@@ -77,7 +77,7 @@ window.renderStatistics = function (ctx, players, times) {
     ctx.fillText(players[i], alignX + getGapCounter(i), CLOUD.height - GAP);
     ctx.fillText(roundedTime, alignX + getGapCounter(i), CLOUD.height - FONT.size + GAP - getBarHeightPlayer(i));
 
-    ctx.fillStyle = getRandomBlueColor(players[i]);
+    ctx.fillStyle = players[i] === USER.name ? USER.color : getRandomBlueColor();
 
     ctx.fillRect(alignX + getGapCounter(i), CLOUD.y + GAP + FONT.size * 2 + barHeight, BAR_WIDTH, -getBarHeightPlayer(i) + FONT.size + GAP);
   }
