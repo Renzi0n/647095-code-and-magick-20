@@ -38,11 +38,9 @@
       document.removeEventListener('mouseup', onMouseUp);
 
       if (dragged) {
-        var onClickPreventDefault = function (clickEvt) {
+        window.dialog.dialogHandleNode.addEventListener('click', function (clickEvt) {
           clickEvt.preventDefault();
-          window.dialog.dialogHandleNode.removeEventListener('click', onClickPreventDefault);
-        };
-        window.dialog.dialogHandleNode.addEventListener('click', onClickPreventDefault);
+        }, {once: true});
       }
     };
 
