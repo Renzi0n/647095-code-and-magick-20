@@ -28,7 +28,7 @@
   };
 
   var getRandomBlueColor = function () {
-    var randomSaturation = window.service.getRandomNumber(1, 100) + '%';
+    var randomSaturation = window.utils.getRandomNumber(1, 100) + '%';
     return 'hsl(240, ' + randomSaturation + ', 50%)';
   };
 

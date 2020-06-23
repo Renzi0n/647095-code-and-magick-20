@@ -2,7 +2,11 @@
 
 (function () {
 
+  var HANDLER_CLOSE_TIMEOUT = 5000;
+
   var userDialogNode = document.querySelector('.setup');
+
+  var statusHandlerNode = document.querySelector('.status-handler');
 
   var userDialogCloseNode = userDialogNode.querySelector('.setup-close');
   var userDialogOpenNode = document.querySelector('.setup-open');
@@ -16,6 +20,16 @@
   var primaryX;
   var primaryY;
 
+
+  var setStatusHandler = function (message, isError) {
+    statusHandlerNode.style.backgroundColor = isError ? 'red' : 'LawnGreen';
+    statusHandlerNode.textContent = message;
+    statusHandlerNode.classList.remove('hidden');
+
+    setTimeout(function () {
+      statusHandlerNode.classList.add('hidden');
+    }, HANDLER_CLOSE_TIMEOUT);
+  };
 
   var onPopupEscPress = function (evt) {
     if (evt.key === 'Escape' && evt.target !== formNode.username) {
@@ -33,6 +47,10 @@
     window.dialogForm.userNodes.coat.addEventListener('click', window.dialogForm.onUserCoatClick);
     window.dialogForm.userNodes.eyes.addEventListener('click', window.dialogForm.onUserEyesClick);
     window.dialogForm.userNodes.fireball.addEventListener('click', window.dialogForm.onUserFireballClick);
+
+    similarListNode.innerHTML = '';
+
+    window.backend.load(window.dialogSimilarWizards.onWizardsLoad, setStatusHandler);
   };
 
   var closePopup = function () {
@@ -45,6 +63,11 @@
     window.dialogForm.userNodes.coat.removeEventListener('click', window.dialogForm.onUserCoatClick);
     window.dialogForm.userNodes.eyes.removeEventListener('click', window.dialogForm.onUserEyesClick);
     window.dialogForm.userNodes.fireball.removeEventListener('click', window.dialogForm.onUserFireballClick);
+  };
+
+  var onLoadFormData = function (message, isError) {
+    setStatusHandler(message, isError);
+    closePopup();
   };
 
   userDialogOpenNode.addEventListener('click', openPopup);
@@ -61,6 +84,11 @@
     if (evt.key === 'Enter') {
       closePopup();
     }
+  });
+
+  formNode.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(formNode), onLoadFormData, setStatusHandler);
+    evt.preventDefault();
   });
 
   window.dialog = {
