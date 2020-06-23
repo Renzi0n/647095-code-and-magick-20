@@ -2,7 +2,11 @@
 
 (function () {
 
+  var HANDLER_CLOSE_TIMEOUT = 5000;
+
   var userDialogNode = document.querySelector('.setup');
+
+  var statusHandlerNode = document.querySelector('.status-handler');
 
   var userDialogCloseNode = userDialogNode.querySelector('.setup-close');
   var userDialogOpenNode = document.querySelector('.setup-open');
@@ -18,21 +22,13 @@
 
 
   var setStatusHandler = function (message, isError) {
-    var node = document.createElement('div');
-    var removeNode = function () {
-      node.remove();
-    };
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center;';
-    node.style.backgroundColor = isError ? 'red' : 'LawnGreen';
-    node.style.position = 'fixed';
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.fontSize = '30px';
+    statusHandlerNode.style.backgroundColor = isError ? 'red' : 'LawnGreen';
+    statusHandlerNode.textContent = message;
+    statusHandlerNode.classList.remove('hidden');
 
-    node.textContent = message;
-    document.body.insertAdjacentElement('afterbegin', node);
-
-    setTimeout(removeNode, 5000);
+    setTimeout(function () {
+      statusHandlerNode.classList.add('hidden');
+    }, HANDLER_CLOSE_TIMEOUT);
   };
 
   var onPopupEscPress = function (evt) {
@@ -52,6 +48,8 @@
     window.dialogForm.userNodes.eyes.addEventListener('click', window.dialogForm.onUserEyesClick);
     window.dialogForm.userNodes.fireball.addEventListener('click', window.dialogForm.onUserFireballClick);
 
+    similarListNode.innerHTML = '';
+
     window.backend.load(window.dialogSimilarWizards.onWizardsLoad, setStatusHandler);
   };
 
@@ -65,10 +63,6 @@
     window.dialogForm.userNodes.coat.removeEventListener('click', window.dialogForm.onUserCoatClick);
     window.dialogForm.userNodes.eyes.removeEventListener('click', window.dialogForm.onUserEyesClick);
     window.dialogForm.userNodes.fireball.removeEventListener('click', window.dialogForm.onUserFireballClick);
-
-    while (similarListNode.firstChild) {
-      similarListNode.removeChild(similarListNode.firstChild);
-    }
   };
 
   var onLoadFormData = function (message, isError) {

@@ -50,6 +50,19 @@ form
     display: none;
 }
 
+.status-handler
+{
+  z-index: 100;
+  margin: 0 auto;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: red;
+  font-size: 30px;
+}
+
 .popup
 {
     position: absolute;
