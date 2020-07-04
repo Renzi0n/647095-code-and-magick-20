@@ -22,12 +22,13 @@
 
 
   var setStatusHandler = function (message, isError) {
-    statusHandlerNode.style.backgroundColor = isError ? 'red' : 'LawnGreen';
+    statusHandlerNode.classList.add(isError ? 'status-handler--onError' : 'status-handler--onLoad');
     statusHandlerNode.textContent = message;
     statusHandlerNode.classList.remove('hidden');
 
     setTimeout(function () {
       statusHandlerNode.classList.add('hidden');
+      statusHandlerNode.classList.remove(isError ? 'status-handler--onError' : 'status-handler--onLoad');
     }, HANDLER_CLOSE_TIMEOUT);
   };
 
@@ -42,6 +43,8 @@
     primaryX = userDialogNode.style.left;
     primaryY = userDialogNode.style.top;
     userDialogNode.classList.remove('hidden');
+
+    window.dialogWidth = window.dialog.userDialogNode.clientWidth;
 
     document.addEventListener('keydown', onPopupEscPress);
     window.dialogForm.userNodes.coat.addEventListener('click', window.dialogForm.onUserCoatClick);

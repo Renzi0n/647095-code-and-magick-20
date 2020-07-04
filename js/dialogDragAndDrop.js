@@ -1,19 +1,19 @@
 'use strict';
 (function () {
 
-  var DIALOG_MOVE = {
-    x: {
-      min: 400,
-      max: 1200
-    },
-    y: {
-      min: 0,
-      max: 500
-    }
-  };
-
   window.dialog.dialogHandleNode.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
+
+    var dialogMove = {
+      x: {
+        min: window.dialogWidth / 2,
+        max: document.documentElement.clientWidth - window.dialogWidth / 2
+      },
+      y: {
+        min: 0,
+        max: document.documentElement.clientHeight / 2
+      }
+    };
 
     var startCoords = {
       x: evt.clientX,
@@ -43,16 +43,16 @@
       var userDialogNodeX = window.dialog.userDialogNode.offsetLeft;
       var userDialogNodeY = window.dialog.userDialogNode.offsetTop;
 
-      if (userDialogNodeX < DIALOG_MOVE.x.min) {
-        window.dialog.userDialogNode.style.left = DIALOG_MOVE.x.min + 'px';
-      } else if (userDialogNodeX > DIALOG_MOVE.x.max) {
-        window.dialog.userDialogNode.style.left = DIALOG_MOVE.x.max + 'px';
+      if (userDialogNodeX < dialogMove.x.min) {
+        window.dialog.userDialogNode.style.left = dialogMove.x.min + 'px';
+      } else if (userDialogNodeX > dialogMove.x.max) {
+        window.dialog.userDialogNode.style.left = dialogMove.x.max + 'px';
       }
 
-      if (userDialogNodeY < DIALOG_MOVE.y.min) {
-        window.dialog.userDialogNode.style.top = DIALOG_MOVE.y.min + 'px';
-      } else if (userDialogNodeY > DIALOG_MOVE.y.max) {
-        window.dialog.userDialogNode.style.top = DIALOG_MOVE.y.max + 'px';
+      if (userDialogNodeY < dialogMove.y.min) {
+        window.dialog.userDialogNode.style.top = dialogMove.y.min + 'px';
+      } else if (userDialogNodeY > dialogMove.y.max) {
+        window.dialog.userDialogNode.style.top = dialogMove.y.max + 'px';
       }
 
     };
