@@ -22,13 +22,19 @@
 
 
   var setStatusHandler = function (message, isError) {
-    statusHandlerNode.style.backgroundColor = isError ? 'red' : 'LawnGreen';
+    statusHandlerNode.classList.add(isError ? 'status-handler--onError' : 'status-handler--onLoad');
     statusHandlerNode.textContent = message;
     statusHandlerNode.classList.remove('hidden');
 
     setTimeout(function () {
       statusHandlerNode.classList.add('hidden');
+      statusHandlerNode.classList.remove(isError ? 'status-handler--onError' : 'status-handler--onLoad');
     }, HANDLER_CLOSE_TIMEOUT);
+  };
+
+  var onLoadWizards = function (data) {
+    window.wizardsData = data.slice();
+    window.sortWizards();
   };
 
   var onPopupEscPress = function (evt) {
@@ -43,14 +49,14 @@
     primaryY = userDialogNode.style.top;
     userDialogNode.classList.remove('hidden');
 
+    window.dialogWidth = window.dialog.userDialogNode.clientWidth;
+
     document.addEventListener('keydown', onPopupEscPress);
     window.dialogForm.userNodes.coat.addEventListener('click', window.dialogForm.onUserCoatClick);
     window.dialogForm.userNodes.eyes.addEventListener('click', window.dialogForm.onUserEyesClick);
     window.dialogForm.userNodes.fireball.addEventListener('click', window.dialogForm.onUserFireballClick);
 
-    similarListNode.innerHTML = '';
-
-    window.backend.load(window.dialogSimilarWizards.onWizardsLoad, setStatusHandler);
+    window.backend.load(onLoadWizards, setStatusHandler);
   };
 
   var closePopup = function () {
