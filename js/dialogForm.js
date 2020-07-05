@@ -19,11 +19,9 @@
       userNodes.coat.style.fill = window.coatColor;
       formNode['coat-color'].value = window.coatColor;
 
-      var updateWizards = window.debounce(function () {
-        window.sortWizards();
-      });
+      var updateWizards = window.debounce(window.sortWizards); // Передаем функцию сортировки в дебаунс
 
-      updateWizards();
+      updateWizards(); // Вызываем функции дебаунса и сортировки
     },
     onUserEyesClick: function () {
       window.eyesColor = window.dialogSimilarWizards.ELEMENTS_COLORS.eyes[window.utils.getRandomNumber(0, window.dialogSimilarWizards.ELEMENTS_COLORS.eyes.length - 1)];
@@ -31,9 +29,7 @@
       userNodes.eyes.style.fill = window.eyesColor;
       formNode['eyes-color'].value = window.eyesColor;
 
-      var updateWizards = window.debounce(function () {
-        window.sortWizards();
-      });
+      var updateWizards = window.debounce(window.sortWizards);
 
       updateWizards();
     },
