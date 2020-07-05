@@ -14,16 +14,28 @@
     userNodes: userNodes,
 
     onUserCoatClick: function () {
-      var coatColor = window.dialogSimilarWizards.ELEMENTS_COLORS.coat[window.utils.getRandomNumber(0, window.dialogSimilarWizards.ELEMENTS_COLORS.coat.length - 1)];
+      window.coatColor = window.dialogSimilarWizards.ELEMENTS_COLORS.coat[window.utils.getRandomNumber(0, window.dialogSimilarWizards.ELEMENTS_COLORS.coat.length - 1)];
 
-      userNodes.coat.style.fill = coatColor;
-      formNode['coat-color'].value = coatColor;
+      userNodes.coat.style.fill = window.coatColor;
+      formNode['coat-color'].value = window.coatColor;
+
+      var updateWizards = window.debounce(function () {
+        window.sortWizards();
+      });
+
+      updateWizards();
     },
     onUserEyesClick: function () {
-      var eyesColor = window.dialogSimilarWizards.ELEMENTS_COLORS.eyes[window.utils.getRandomNumber(0, window.dialogSimilarWizards.ELEMENTS_COLORS.eyes.length - 1)];
+      window.eyesColor = window.dialogSimilarWizards.ELEMENTS_COLORS.eyes[window.utils.getRandomNumber(0, window.dialogSimilarWizards.ELEMENTS_COLORS.eyes.length - 1)];
 
-      userNodes.eyes.style.fill = eyesColor;
-      formNode['eyes-color'].value = eyesColor;
+      userNodes.eyes.style.fill = window.eyesColor;
+      formNode['eyes-color'].value = window.eyesColor;
+
+      var updateWizards = window.debounce(function () {
+        window.sortWizards();
+      });
+
+      updateWizards();
     },
     onUserFireballClick: function () {
       var fireballColor = window.dialogSimilarWizards.ELEMENTS_COLORS.fireball[window.utils.getRandomNumber(0, window.dialogSimilarWizards.ELEMENTS_COLORS.fireball.length - 1)];

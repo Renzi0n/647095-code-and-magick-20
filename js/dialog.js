@@ -32,6 +32,11 @@
     }, HANDLER_CLOSE_TIMEOUT);
   };
 
+  var onLoadWizards = function (data) {
+    window.wizardsData = data.slice();
+    window.sortWizards();
+  };
+
   var onPopupEscPress = function (evt) {
     if (evt.key === 'Escape' && evt.target !== formNode.username) {
       evt.preventDefault();
@@ -51,9 +56,7 @@
     window.dialogForm.userNodes.eyes.addEventListener('click', window.dialogForm.onUserEyesClick);
     window.dialogForm.userNodes.fireball.addEventListener('click', window.dialogForm.onUserFireballClick);
 
-    similarListNode.innerHTML = '';
-
-    window.backend.load(window.dialogSimilarWizards.onWizardsLoad, setStatusHandler);
+    window.backend.load(onLoadWizards, setStatusHandler);
   };
 
   var closePopup = function () {

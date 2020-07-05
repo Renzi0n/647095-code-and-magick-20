@@ -28,13 +28,12 @@
   window.dialogSimilarWizards = {
     ELEMENTS_COLORS: ELEMENTS_COLORS,
 
-    onWizardsLoad: function (randomWizardsNodeArr) {
-      var randomStartOfArr = window.utils.getRandomNumber(0, randomWizardsNodeArr.length - MAX_SIMILAR_WIZARD_COUNT);
-
+    renderWizards: function (wizardsNodeArr) {
+      window.dialog.similarListNode.innerHTML = '';
       window.dialog.userDialogNode.querySelector('.setup-similar').classList.remove('hidden');
 
-      for (var i = randomStartOfArr; i < randomStartOfArr + MAX_SIMILAR_WIZARD_COUNT; i++) {
-        fragment.appendChild(renderWizard(randomWizardsNodeArr[i]));
+      for (var i = 0; i < MAX_SIMILAR_WIZARD_COUNT; i++) {
+        fragment.appendChild(renderWizard(wizardsNodeArr[i]));
       }
       similarListNode.appendChild(fragment);
     }
