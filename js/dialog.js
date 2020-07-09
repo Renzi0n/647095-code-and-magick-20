@@ -56,6 +56,8 @@
     window.dialogForm.userNodes.eyes.addEventListener('click', window.dialogForm.onUserEyesClick);
     window.dialogForm.userNodes.fireball.addEventListener('click', window.dialogForm.onUserFireballClick);
 
+    window.fileInputNode.addEventListener('change', window.onFileInputNodeChange); // добавляем обработчик события для загрузки аватара
+
     window.backend.load(onLoadWizards, setStatusHandler);
   };
 
@@ -69,6 +71,8 @@
     window.dialogForm.userNodes.coat.removeEventListener('click', window.dialogForm.onUserCoatClick);
     window.dialogForm.userNodes.eyes.removeEventListener('click', window.dialogForm.onUserEyesClick);
     window.dialogForm.userNodes.fireball.removeEventListener('click', window.dialogForm.onUserFireballClick);
+
+    window.fileInputNode.removeEventListener('change', window.onFileInputNodeChange); // удаляем обработчик события для загрузки аватара
   };
 
   var onLoadFormData = function (message, isError) {
